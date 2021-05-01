@@ -9,7 +9,10 @@ module.exports = (req, res, next) => {
         if(req.body.userId && req.body.userId !== userId){
             throw 'User ID non valable !';
         }
-    }catch (error){
+        next();
+        
+    }catch (error)
+    {console.log(error)
         res.status(401).json({error: error | 'Requête non authentifiée !'});
     }
 };

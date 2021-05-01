@@ -6,7 +6,9 @@ const fs = require('fs');
 //permet de créer une nouvelle sauce, nous exposons la logique de notre route POST en tant que fonction appelée createSauce
 exports.createSauce = (req, res, next) => {
     //stock les données reçu du front-end sous forme de data et les transforment en objet dans une variable
+   
     const sauceObject = JSON.parse(req.body.sauce);
+    
     //suppression de l'id
     delete sauceObject._id;
     //creation du modèle sauce
@@ -30,6 +32,7 @@ exports.modifySauce = (req, res ,next) =>{
     {
     ...JSON.parse(req.body.sauce),
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`}: {...req.body}; 
+    
     Sauce.updateOne({ _id: req.params.id}, {...sauceObjet, _id: req.params.id})
     .then(() => res.status(200).json({message:'votre sauce a été modifiée!'}))
     .catch(error => res.statut(400).json({error}));
@@ -58,7 +61,7 @@ exports.getOneSauce = (req, res, next) => {
 };
 //récupération toutes les sauces
 exports.getAllSauces = (req, res, next) =>{
-    Sauce.find({_id: req.params.id})
+    Sauce.find({})
     .then(sauces => res.status(200).json(sauces))
     .catch( error => res.status(400).json({error}));
 };
@@ -70,13 +73,12 @@ exports.likeDislikeSauce = (req, res, next) =>{
         case 0:
             Sauce.findOne({_id: req.params.id})
             .then((sauce) => {
-                if(sauce.usersLiked.find(use => user === req.body.userId)){
-                    Sauce.uptdateOne({_id: req.params.id}, {
+                if(sauce.usersLiked.find(user => user === req.body.userId)){
+                    Sauce.updateOne({_id: req.params.id}, {
                         //$inc permet de rajouter une valeur à une donnée numérique. Cette valeur peut être positive ou négative.
                         $inc: {likes: -1},
                         //Pour supprimer un élément, on peut utiliser $pull.
-                        $pull : {usersLiked: req.body.userId},
-                        _id: req.params.id
+                        $pull : {usersLiked: req.body.userId}
 
                     })
                     .then(() => res.status(201).json({message: 'Votre avis a été pris en compte !'}))
@@ -85,32 +87,30 @@ exports.likeDislikeSauce = (req, res, next) =>{
                 if (sauce.usersDisliked.find(user => user === req.body.userId)){
                     Sauce .updateOne({ _id: req.params.id},{
                     $inc: {dislikes: -1},
-                    $pull: { usersDisliked: req.body.userId},
-                    _id: req.params.id
-                }).then(() => res.status(201).json({message: 'Votre avis a été pris en compte !'}))
-                .catch(error => res.status(400).json({error}))
+                    $pull: { usersDisliked: req.body.userId}
+                })
+                .then(() => res.status(201).json({message: 'Votre avis a été pris en compte !'}))
+                .catch(error => res.status(400).json({error}));
             }  
         })   
         .catch(error => res.status(404).json({error}));
         break;//L'instruction break permet de terminer la boucle en cours ou l'instruction switch ou label en cours et de passer le contrôle du programme à l'instruction suivant l'instruction terminée.
 
         // likes = 0
-        case 1 :
-            Sauce.uptdateOne({_id: req.params.id}, {
+        case 1:
+            Sauce.updateOne({_id: req.params.id}, {
                 $inc: { likes: 1},
                 //L’opérateur $push permet de rajouter un nouvel élément à un tableau.
-                $push: {usersLiked: req.body.userId},
-                _id: req.params.id
+                $push: {usersLiked: req.body.userId}
             })
             .then(()=> res.status(201).json({message: 'Votre like a été pris en compte !'}))
             .catch(error => res.status(400).json({error}));
             break;
         //likes = -1
         case -1:
-            Sauce.uptdateOne({ _id: req.params.id}, {
+            Sauce.updateOne({ _id: req.params.id}, {
                 $inc: { dislikes: 1},
-                $puch: { usersDisliked: req.body.userId},
-                _id: req.params.id
+                $push: { usersDisliked: req.body.userId}
             })
             .then(() => res.status(201).json({message: 'Votre dislike a été pris en compte !'}))
             .catch(error => res.status(400).json({error}));
