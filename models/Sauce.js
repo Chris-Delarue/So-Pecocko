@@ -1,6 +1,8 @@
 //importation de mongoose
 const mongoose = require('mongoose');
 
+const Validate = require('../middleware/sauceValidate');
+
 //création d'un schéma produit pour la base de donnée MongoDB 
 const sauceSchema = mongoose.Schema({
     userId : { type: String, required: true},
@@ -14,8 +16,9 @@ const sauceSchema = mongoose.Schema({
     dislikes : { type: Number, requied: false, default: 0},
     usersLiked : { type : [String]},
     usersDisliked : { type : [String]},
-
 });
+
+
 
 //exporte le schéma de données pour interagir acvec l'application
 module.exports = mongoose.model('Sauce', sauceSchema);

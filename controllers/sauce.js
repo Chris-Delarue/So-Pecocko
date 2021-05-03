@@ -43,10 +43,12 @@ exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id})
     .then(sauce=> {
         //nous utilisons le fait de savoir que notre URL d'image contient un segment /images/ pour séparer le nom de fichier ;
-        const filename = sauce.imageUrl.split('/image/')[1];
+        const filename = sauce.imageUrl.split('/images/')[1];
         //nous utilisons ensuite la fonction unlink du package fs pour supprimer ce fichier, en lui passant le fichier à supprimer et le callback à exécuter une fois ce fichier supprimé ;
         fs.unlink(`images/${filename}`, () => {
-            Sauce.deleteOne({ _id: req.params.id})
+            Sauce.deleteOne({ 
+                _id: req.params.id
+            })
             .then(() => res.status(200).json({message : 'Votre sauce a été supprimée !'}))
             .catch(error => res.status(400).json({error}));
         });
