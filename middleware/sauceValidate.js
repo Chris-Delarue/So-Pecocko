@@ -41,7 +41,7 @@ exports.descriptionValidator = [ //Validation pour la description
     }),
 ];
 
-exports.pepperValidator = [ //Validation pour le non du piment 
+exports.mainPepperValidator = [ //Validation pour le non du piment 
     validate({
         validator: 'isLength',
         arguments: [3, 50], 
