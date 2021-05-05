@@ -6,7 +6,7 @@ const express = require('express');
 //Helmet  aide à protéger l'application de certaines des vulnérabilités bien connues du Web en configurant de manière appropriée des en-têtes HTTP.
 const helmet = require('helmet');
 const cookieSession = require('cookie-session');
-
+const nocache = require('nocache');
 
 //permet d'extraire l'objet json des requête post
 const bodyParser = require('body-parser');
@@ -55,7 +55,7 @@ app.use((req, res, next) => {
 //https://github.com/expressjs/cookie-session
 //Les cookies de session sont donc utilisés pour stocker des informations sur la session en cours. 
 //ils utilisent des cookies de session pour se souvenir d’un utilisateur pendant une période limitée.
-const expireDate = new Date(Date.now()+ 3600000); //1 heure (60*60(1000)
+const expireDate = new Date(Date.now()+ 3600000); //1 heure (60*60*1000)
 app.use(cookieSession({
   name : 'session',
   secret : process.env.SECRET_SES,
@@ -75,6 +75,9 @@ app.use(bodyParser.json());
 
 // mise en place X-XSS-Protection pour activer le filtre script intersiteXSS dans les navigateurs
 app.use(helmet());
+
+//Désactive la mise en cache du navigateur
+app.use(nocache());
 
 //routes dédiées aux sauces
 app.use('/api/sauces', sauceRoutes);
