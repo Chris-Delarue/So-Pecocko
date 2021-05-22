@@ -17,17 +17,17 @@ L’entreprise ayant subi quelques attaques sur son site web ces dernières sema
 fondateur souhaite que les données des utilisateurs soient parfaitement protégées.
 Pour cela, l’API utilisée devra impérativement respecter des pratiques de code sécurisé.
 Exigences concernant la sécurité :
-● l’API doit respecter le RGPD et les standards OWASP;
-● le mot de passe des utilisateurs doit être chiffré ;
-● 2 types de droits administrateur à la base de données doivent être définis : un accès
+# l’API doit respecter le RGPD et les standards OWASP;
+#  le mot de passe des utilisateurs doit être chiffré ;
+# 2 types de droits administrateur à la base de données doivent être définis : un accès
 pour supprimer ou modifier des tables, et un accès pour éditer le contenu de la base
 de données ;
-● la sécurité de la base de données MongoDB (à partir d’un service tel que MongoDB
+#  la sécurité de la base de données MongoDB (à partir d’un service tel que MongoDB
 Atlas) doit être faite de telle sorte que le validateur puisse lancer l’application depuis
 sa machine ;
-● l’authentification est renforcée sur les routes requises ;
-● les mots de passe sont stockés de manière sécurisée ;
-● les adresses mails de la base de données sont uniques et un plugin Mongoose
+# l’authentification est renforcée sur les routes requises ;
+# les mots de passe sont stockés de manière sécurisée ;
+# les adresses mails de la base de données sont uniques et un plugin Mongoose
 approprié est utilisé pour s’assurer de leur caractère unique et rapporter des erreurs.
 
 
@@ -37,18 +37,18 @@ Pour commencer
 Frontend :
 
 git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front.
-cd front
-npm install
-npm start
-Ne pas oublier node-sass à installer
+# cd front
+# npm install
+# npm start
+# Ne pas oublier node-sass à installer
 
 
 Backend :
 
 git clone git@github.com/Chris-Delarue/So-Pecocko.git back
-cd back
-npm install
-nodemon server
+# cd back
+# npm install
+# nodemon server
 
 Avant d'acceder à l'application, vous devez créer fichier .env dans la'root directory' (dossier back).
 A l'interieur du fichier .env, ajouter une variable spécifique comme ci-dessous
