@@ -1,6 +1,6 @@
 ##                           Construire une API sécurisé pour une application d’avis gastronomique
 
-![flame](https://user-images.githubusercontent.com/73162047/119232278-eaf3e000-bb24-11eb-9d3b-49a372e8c409.png)
+
 
 
 
@@ -39,8 +39,8 @@ Pour commencer
 
 Frontend :
 
-git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front
-* cd front
+git clone https://github.com/OpenClassrooms-Student-Center/dwj-projet6.git frontend
+* cd frontend
 * npm install
 * npm start
 * Ne pas oublier node-sass à installer
