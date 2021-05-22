@@ -1,11 +1,9 @@
 // Contient les fonctions qui s'appliquent aux différentes routes pour les utilisateurs
-
-
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user');
 
-const passwordVerify = require('..//middleware/passwordVerify');
+const passwordVerify = require('../middleware/passwordVerify');
 
 // chiffre le mot de passe de l'USER et ajoute L'USER à la BDD
 router.post('/signup', passwordVerify, userCtrl.signup);

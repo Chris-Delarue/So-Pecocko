@@ -24,7 +24,7 @@ exports.createSauce = (req, res, next) => {
     sauce.save()
     .then(() => res.status(201).json({message: 'Votre sauce est enregistrée !'}))
     //code d'erreur en cas de problème
-    .catch(error => res.status(400).json({error}));
+    .catch(error => res.status(500).json({error}));
 }
 //modification d'un sauce
 exports.modifySauce = (req, res ,next) =>{
@@ -35,37 +35,54 @@ exports.modifySauce = (req, res ,next) =>{
     
     Sauce.updateOne({ _id: req.params.id}, {...sauceObjet, _id: req.params.id})
     .then(() => res.status(200).json({message:'votre sauce a été modifiée!'}))
-    .catch(error => res.statut(400).json({error}));
+    .catch(error => res.statut(500).json({error}));
 };
 
 // suppression sauce
 exports.deleteSauce = (req, res, next) => {
+    if(!req.params.id){
+        return res.status(400).json({message: "bad request !"})
+    }
     Sauce.findOne({ _id: req.params.id})
     .then(sauce=> {
-        //nous utilisons le fait de savoir que notre URL d'image contient un segment /images/ pour séparer le nom de fichier ;
+        
+                //nous utilisons le fait de savoir que notre URL d'image contient un segment /images/ pour séparer le nom de fichier ;
         const filename = sauce.imageUrl.split('/images/')[1];
         //nous utilisons ensuite la fonction unlink du package fs pour supprimer ce fichier, en lui passant le fichier à supprimer et le callback à exécuter une fois ce fichier supprimé ;
+        
+       
         fs.unlink(`images/${filename}`, () => {
-            Sauce.deleteOne({ 
-                _id: req.params.id
+            Sauce.deleteOne({ _id: req.params.id})
+            .then(sauce => {
+                if(sauce){
+                    return res.status(200).json({message : 'Votre sauce a été supprimée !'});
+                }
+                return res.status(404).json({error: "La ressource demandée n'éxiste pas !"});
             })
-            .then(() => res.status(200).json({message : 'Votre sauce a été supprimée !'}))
-            .catch(error => res.status(400).json({error}));
+            .catch(error => res.status(500).json({error}));
         });
     })
     .catch(error => res.status(500).json({error}));
 }; 
 //récupération une sauce 
 exports.getOneSauce = (req, res, next) => {
+    if(!req.params.id){
+        return res.status(400).json({message: "bad request !"})
+    }
     Sauce.findOne({_id: req.params.id})
-    .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(400).json({error}));
+    .then(sauce => {
+        if(sauce){
+            return res.status(200).json(sauce);
+        }
+        return res.status(404).json({error: "La ressource demandée n'éxiste pas !"})
+    })
+    .catch(error => res.status(500).json({error}));
 };
 //récupération toutes les sauces
 exports.getAllSauces = (req, res, next) =>{
     Sauce.find({})
     .then(sauces => res.status(200).json(sauces))
-    .catch( error => res.status(400).json({error}));
+    .catch( error => res.status(500).json({error}));
 };
 //Incrementation LIKES et DISLIKES des sauces A COMPLETER
 exports.likeDislikeSauce = (req, res, next) =>{
@@ -84,7 +101,7 @@ exports.likeDislikeSauce = (req, res, next) =>{
 
                     })
                     .then(() => res.status(201).json({message: 'Votre avis a été pris en compte !'}))
-                    .catch(error => res.status(400).json({error}));
+                    .catch(error => res.status(500).json({error}));
                 }//verification que l'User n'a pas déjà disliker la sauce
                 if (sauce.usersDisliked.find(user => user === req.body.userId)){
                     Sauce .updateOne({ _id: req.params.id},{
@@ -92,10 +109,10 @@ exports.likeDislikeSauce = (req, res, next) =>{
                     $pull: { usersDisliked: req.body.userId}
                 })
                 .then(() => res.status(201).json({message: 'Votre avis a été pris en compte !'}))
-                .catch(error => res.status(400).json({error}));
-            }  
+                .catch(error => res.status(500).json({error}));
+            }  console.log(req.body)
         })   
-        .catch(error => res.status(404).json({error}));
+        .catch(error => res.status(500).json({error}));
         break;//L'instruction break permet de terminer la boucle en cours ou l'instruction switch ou label en cours et de passer le contrôle du programme à l'instruction suivant l'instruction terminée.
 
         // likes = 0
@@ -106,7 +123,7 @@ exports.likeDislikeSauce = (req, res, next) =>{
                 $push: {usersLiked: req.body.userId}
             })
             .then(()=> res.status(201).json({message: 'Votre like a été pris en compte !'}))
-            .catch(error => res.status(400).json({error}));
+            .catch(error => res.status(500).json({error}));
             break;
         //likes = -1
         case -1:
@@ -115,7 +132,7 @@ exports.likeDislikeSauce = (req, res, next) =>{
                 $push: { usersDisliked: req.body.userId}
             })
             .then(() => res.status(201).json({message: 'Votre dislike a été pris en compte !'}))
-            .catch(error => res.status(400).json({error}));
+            .catch(error => res.status(500).json({error}));
             break;
             default:
                 console.error('mauvaise requête !')

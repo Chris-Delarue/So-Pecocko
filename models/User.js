@@ -1,7 +1,6 @@
 //importation de mongoose
 const mongoose = require('mongoose');
-//https://www.npmjs.com/package/mongoose-type-email
-require('mongoose-type-email');
+
 
 //Valide que l'émail est bien unique
 const uniqueValidator = require('mongoose-unique-validator');
@@ -11,13 +10,13 @@ const sanitizerPlugin = require('mongoose-sanitizer-plugin');
 const userSchema = mongoose.Schema({
     email : { 
         type: String, 
-        required: true, 
+        required: true,
         unique: true,
-        match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, "Veuillez entrer une adresse email correcte"]
-        },
-    password: { 
+    },
+        password: { 
         type: String, 
-        required: true}
+        required: true},
+
 });
 
 //  Plugin pour vérifier un email unique
