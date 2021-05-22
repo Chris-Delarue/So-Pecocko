@@ -33,7 +33,7 @@ Pour commencer
 
 Frontend :
 
-git clone git@github.com:OpenClassrooms-Student-Center/dwj-projet6.git front
+git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front
 cd front
 npm install
 npm start
@@ -42,7 +42,7 @@ Ne pas oublier node-sass à installer
 
 Backend :
 
-git clone git@github.com:Chris-Delarue/So-Pecocko.git back
+git clone git@github.com/Chris-Delarue/So-Pecocko.git back
 cd back
 npm install
 nodemon server
@@ -56,9 +56,3 @@ Ensuite dans votre navigateur : http://localhost:4200/
 Connaissance aquise:
 
 Utilisation de Node.js, Express, MongoDB
-
-
- 
-
-
-
