@@ -1,7 +1,9 @@
 ##                           Construire une API sécurisé pour une application d’avis gastronomique
 
 
-###                             ![So-Pecocko](https://user-images.githubusercontent.com/73162047/119232661-4f636f00-bb26-11eb-9f34-a135d8c71008.png)
+ <p align="center">
+  <img src="![So-Pecocko](https://user-images.githubusercontent.com/73162047/119232661-4f636f00-bb26-11eb-9f34-a135d8c71008.png)"/>
+  </p>
 
 
 Contexte du projet
