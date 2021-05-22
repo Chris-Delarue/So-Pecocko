@@ -56,8 +56,8 @@ git clone https://github.com/Chris-Delarue/So-Pecocko.git backend
 Avant d'acceder à l'application, vous devez créer fichier .env dans la'root directory' (dossier back).
 A l'interieur du fichier .env, ajouter une variable spécifique comme ci-dessous
 
-DB_URI="mongodb+srv://votre MongoDB_ID:votre Password@votre cluster..mongodb.net/votre Database name?retryWrites=true&w=majority"
-Ensuite dans votre navigateur : http://localhost:4200/
+* DB_URI="mongodb+srv://votre MongoDB_ID:votre Password@votre cluster..mongodb.net/votre Database name?retryWrites=true&w=majority"
+* Ensuite dans votre navigateur : http://localhost:4200/
 
 
 
