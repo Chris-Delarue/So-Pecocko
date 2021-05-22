@@ -48,8 +48,8 @@ git clone https://github.com/OpenClassrooms-Student-Center/dwj-projet6.git front
 
 Backend :
 
-git clone git@github.com/Chris-Delarue/So-Pecocko.git back
-* cd back
+git clone https://github.com/Chris-Delarue/So-Pecocko.git backend
+* cd backend
 * npm install
 * nodemon server
 
