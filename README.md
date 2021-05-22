@@ -1,4 +1,4 @@
-#titre _Construire une API sécurisé pour une application d’avis gastronomique_
+#titre_Construire une API sécurisé pour une application d’avis gastronomique_
 
 
 Contexte du projet
