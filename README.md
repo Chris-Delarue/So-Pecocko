@@ -36,7 +36,7 @@ Pour commencer
 
 Frontend :
 
-git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front.
+git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front
 * cd front
 * npm install
 * npm start
