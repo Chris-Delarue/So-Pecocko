@@ -37,18 +37,18 @@ Pour commencer
 Frontend :
 
 git clone git@github.com/OpenClassrooms-Student-Center/dwj-projet6.git front.
--cd front
--npm install
--npm start
+cd front
+npm install
+npm start
 Ne pas oublier node-sass à installer
 
 
 Backend :
 
 git clone git@github.com/Chris-Delarue/So-Pecocko.git back
--cd back
--npm install
--nodemon server
+cd back
+npm install
+nodemon server
 
 Avant d'acceder à l'application, vous devez créer fichier .env dans la'root directory' (dossier back).
 A l'interieur du fichier .env, ajouter une variable spécifique comme ci-dessous
