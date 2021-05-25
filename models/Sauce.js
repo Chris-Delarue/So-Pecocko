@@ -53,9 +53,7 @@ const sauceSchema = mongoose.Schema({
         type : [String]
     },
 });
-//https://www.npmjs.com/package/mongoose-sanitizer
-// Plugin pour Mongoose qui purifie les champs du model avant de les enregistrer dans la base MongoDB.
-// Utilise le HTML Sanitizer de Google Caja pour effectuer la désinfection.
+
 sauceSchema.plugin(sanitizerPlugin);
 
 //exporte le schéma de données pour interagir acvec l'application

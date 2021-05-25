@@ -22,8 +22,7 @@ const userSchema = mongoose.Schema({
 //  Plugin pour vérifier un email unique
 userSchema.plugin(uniqueValidator);
 
-// Plugin pour Mongoose qui purifie les champs du model avant de les enregistrer dans la base MongoDB.
-// On utilise le HTML Sanitizer de Google Caja pour effectuer cette désinfection.
+
 userSchema.plugin(sanitizerPlugin);
 
 

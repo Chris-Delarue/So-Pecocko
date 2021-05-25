@@ -3,19 +3,17 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
 
     try{
-        // On récupère le token dans le header de la requête autorisation, on récupère uniquement le deuxième élément du tableau (car split)
+       
         const token = req.headers.authorization.split(' ')[1];
-         // On vérifie le token décodé avec la clé secrète initiéé avec la création du token encodé initialement (Cf Controller user), les clés doivent correspondre
-        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET); // On vérifie que le userId envoyé avec la requête correspond au userId encodé dans le token
+     
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET); 
         const userId = decodedToken.userId;
         if(req.body.userId && req.body.userId !== userId){
-            throw 'User ID non valable !'; //si le token ne correspond pas au userId : erreur
+            throw 'User ID non valable !'; 
         }else{
-            
-            next();    // si tout est valide on passe au prochain middleware
-        
+            next();    
     }
-    } catch // probleme d'authentification si erreur dans les instructions
+    } catch 
     {
         res.status(401).json({error : new Error('Requête non authentifiée !')
     });

@@ -1,11 +1,10 @@
-//utilisation de bcryp pour hasher le mot de passe des Users
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const MaskData = require('maskdata')
 
 require('dotenv').config();
-//const CryptoJS = require('crypto-js');
-//récupération schéma User
+
 
 const User = require('../models/User');
 
@@ -44,8 +43,6 @@ exports.signup = (req, res, next) =>{
     .catch(error => res.status(500).json({error}));
 };
 
-// Le Middleware pour la connexion d'un utilisateur vérifie si l'utilisateur existe dans la base MongoDB lors du login
-//si oui il vérifie son mot de passe, s'il est bon il renvoie un TOKEN contenant l'id de l'utilisateur, sinon il renvoie une erreur 401 Unauthorized
 exports.login = (req, res, next) => {
 
     const emailMask2Options = {
@@ -69,21 +66,18 @@ exports.login = (req, res, next) => {
                 {error: 'Utilisateur non trouvé !'}
           );
         }
-        //utilisation de bcrypt pour comparer les hashs pour être sur d'avoir les même string d'origine
         bcrypt.compare(req.body.password, user.password)
         .then(valid => {
             if(!valid){
                 return res.status(404).json({error: 'Veuillez vérifier votre émail et/ou votre mot de passe !'});
             }
-            // Si true, on renvoie un statut 200 et un objet JSON avec un userID + un token
            res.status(200).json({
                 userId : user._id,
-                //verify si la requête est authentifié
-                token: jwt.sign(//Encode un nouveau token avec une chaine de développement temporaire
+                token: jwt.sign(
                     {userId: user._id},
-                    process.env.TOKEN_SECRET,//Clé d'encodage du token 
+                    process.env.TOKEN_SECRET,
                     {
-                    expiresIn: '24h'
+                    expiresIn: '900s'
                 })
             });
         })

@@ -8,7 +8,7 @@ const auth = require('../middleware/auth');
 //import du middleware multer pour la gestion des images
 const multer = require('../middleware/multer-config');
 
-//pour réimplémenter cela dans notre route, nous devons importer notre contrôleur puis enregistrer sauceThing :
+
 const sauceCtrl = require('../controllers/sauce');
 
 //appel routes API
