@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Projet 6 So-Pekocko",
   "main": "server.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -12,6 +11,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.6",
     "helmet": "^4.5.0",
     "jsonwebtoken": "^8.5.1",
     "maskdata": "^1.1.4",

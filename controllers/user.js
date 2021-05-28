@@ -1,7 +1,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const MaskData = require('maskdata')
+const MaskData = require('maskdata');
 
 require('dotenv').config();
 

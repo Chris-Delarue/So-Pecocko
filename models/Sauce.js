@@ -1,6 +1,7 @@
 
 //importation de mongoose
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator');
 
 const sanitizerPlugin = require('mongoose-sanitizer-plugin');
 
@@ -13,6 +14,7 @@ const sauceSchema = mongoose.Schema({
     name: { 
         type : String, 
         required: true,
+        unique : true,
         lowercase: true,
         trim: true
       },
@@ -55,6 +57,7 @@ const sauceSchema = mongoose.Schema({
 });
 
 sauceSchema.plugin(sanitizerPlugin);
+sauceSchema.plugin(uniqueValidator);
 
 //exporte le schéma de données pour interagir acvec l'application
 module.exports = mongoose.model('Sauce', sauceSchema);

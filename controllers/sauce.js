@@ -27,10 +27,24 @@ exports.createSauce = (req, res, next) => {
 }
 //modification d'un sauce
 exports.modifySauce = (req, res ,next) =>{
-    const sauceObjet = req.file ? 
-    {
+    let sauceObjet = {}; 
+    req.file ? (
+        Sauce.findOne({
+            _id: req.params.id
+        }).then((sauce) => {
+            const filename = sauce.imageUrl.split('/images/')[1]
+            fs.unlinkSync(`images/${filename}`)
+        }),
+        sauceObjet = {
+
     ...JSON.parse(req.body.sauce),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`}: {...req.body}; 
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    }
+): (
+    sauceObjet = {
+        ...req.body
+    }
+)
     
     Sauce.updateOne({ _id: req.params.id}, {...sauceObjet, _id: req.params.id})
     .then(() => res.status(200).json({message:'votre sauce a été modifiée!'}))
@@ -39,10 +53,13 @@ exports.modifySauce = (req, res ,next) =>{
 
 // suppression sauce
 exports.deleteSauce = (req, res, next) => {
-      
+    if(!req.params.id){
+        return res.status(400).json({message: "bad request !"})
+    }
     Sauce.findOne({ _id: req.params.id})
     .then(sauce=> {
         const filename = sauce.imageUrl.split('/images/')[1];
+        
        
         fs.unlink(`images/${filename}`, () => {
             
@@ -51,11 +68,12 @@ exports.deleteSauce = (req, res, next) => {
                  if(sauce){
                     return res.status(200).json({message : 'Votre sauce a été supprimée !'});
                } 
+               return res.status(404).json({error: "La ressource demandée n'éxiste pas !"})
            })
             .catch(error => res.status(400).json({error}))
         });
     })
-            .catch(error => res.status(500).json({error}))
+    .catch(error => res.status(500).json({error}))
 };
 
 //récupération une sauce 

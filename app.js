@@ -10,10 +10,17 @@ const nocache = require('nocache');
 
 const bodyParser = require('body-parser');
 
+const rateLimit = require("express-rate-limit");
 
 const mongoose = require('mongoose'); 
 
 const path = require('path');
+
+
+const limiter = rateLimit({
+  windowsMs: 15*60*1000,
+  max: 100
+});
 
 
 //déclaration des routes
@@ -23,6 +30,8 @@ const userRoutes = require('./routes/user');
 //création d'une application express
 const app = express();
 
+app.use(limiter);
+
 //masque les infos de connextion à la BDD à l'aide dune variable d'environnement
 require('dotenv').config();
 
@@ -30,7 +39,7 @@ require('dotenv').config();
 mongoose.connect(process.env.DB_URI,
     {
       useCreateIndex: true,
-      userNewUrlParser: true,
+      useNewUrlParser: true,
       useUnifiedTopology: true
     })
 .then(()=> console.log('Connexion à MongoDB réussie !'))
@@ -63,6 +72,8 @@ app.use('/api/sauces', sauceRoutes);
 
 //routes dédiées aux utilisateurs
 app.use('/api/auth', userRoutes);
+
+
 
 //export de l'application express pour déclaration dans server.js
 module.exports = app;
