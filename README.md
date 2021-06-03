@@ -55,6 +55,10 @@ git clone https://github.com/Chris-Delarue/So-Pecocko.git backend
 * npm install
 * nodemon server
 
+Accédez au site Web de MongoDB et créez un compte gratuit. Une fois que vous avez accès à votre tableau de bord, créez un cluster puis configurez-le avec l'option AWS et uniquement les options gratuites afin que vous puissiez développer gratuitement.
+
+Lors du démarrage de votre cluster, vous pouvez accéder à l'onglet Accès à la base de données. Tout d'abord, vous devrez ajouter un utilisateur capable de lire et d'écrire dans n'importe quelle base de données. Choisissez le nom d'utilisateur et le mot de passe que vous souhaitez et notez-les, car vous en aurez besoin pour connecter votre API à votre cluster. Vous devrez également accéder à l'onglet Accès réseau, cliquer sur Ajouter une adresse IP et autoriser l'accès depuis n'importe où (Ajouter un accès depuis n'importe où).
+
 Avant d'acceder à l'application, vous devez créer fichier .env dans la'root directory' (dossier back).
 A l'interieur du fichier .env, ajouter une variable spécifique comme ci-dessous
 
